@@ -1,6 +1,6 @@
 const Project=require('../models/Project');
 const slugify=require('slugify');
-const{validatioRequest}=require('express-validator');
+const{validationResult}=require('express-validator');
 
 exports.createProject=async(req,res)=>{
     const errors = validationResult(req);

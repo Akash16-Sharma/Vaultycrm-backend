@@ -1,8 +1,12 @@
 const Client=require('../models/Client');
+const { validationResult } = require('express-validator');
 
 //Create Client
 exports.createClient=async (req,res)=> {
-    
+    const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
     try{
         const client=await Client.create({...req.body,user:req.user.id});
         res.status(201).json(client);
@@ -27,6 +31,10 @@ exports.getClients=async (req,res)=>{
 //Update Client
 
 exports.updateClient=async(req,res)=>{
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
     try{
         const client=await Client.findOneAndUpdate(
             {_id:req.params.id,user:req.user.id},

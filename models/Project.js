@@ -13,6 +13,11 @@ const projectSchema = new mongoose.Schema({
     unique: true,
     lowercase: true
   },
+  status: {
+    type: String,
+    enum: ['Pending', 'In Progress', 'Completed'],
+    default: 'Pending',
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -25,5 +30,3 @@ const projectSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Project', projectSchema);
-
-
