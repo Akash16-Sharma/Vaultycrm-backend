@@ -71,3 +71,24 @@ exports.deleteTask=async(req,res)=>{
     res.status(500).json({ message: 'Error deleting task' });
   }
 };
+
+
+// PATCH /api/tasks/:id/status
+
+exports.updateStatus=async(req,res)=>
+{
+    try{
+        const{status}=req.body;
+        const task=await Task.findOneAndUpdate(
+            {_id: req.params.id, createdBy: req.user.id},
+            {status},
+            { new: true, runValidators: true }
+
+        );
+        if (!task) return res.status(404).json({ message: "Task not found or unauthorized" });
+        res.json(task);
+    }
+    catch (err) {
+    res.status(500).json({ message: "Error updating status" });
+  }
+};

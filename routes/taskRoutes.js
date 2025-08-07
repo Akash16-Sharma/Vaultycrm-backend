@@ -6,6 +6,7 @@ const {
   getTasksByProjects,
   updateTask,
   deleteTask,
+  updateStatus,
 }=require("../controllers/taskController");
 
 
@@ -23,5 +24,8 @@ router.put('/:id', updateTask);
 
 // DELETE /api/tasks/:id
 router.delete('/:id', deleteTask);
+
+//Patch Api
+router.patch("/:id/status", auth, updateStatus);
 
 module.exports = router;
