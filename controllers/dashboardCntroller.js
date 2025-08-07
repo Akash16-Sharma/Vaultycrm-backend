@@ -7,7 +7,7 @@ exports.getDashBordStats = async (req, res) => {
     const userId = req.user.id;
 
     const [client, project, task] = await Promise.all([
-      Client.countDocuments({ createdBy: userId }),
+      Client.countDocuments({ user: userId }),
       Project.countDocuments({ createdBy: userId }),
       Task.countDocuments({ createdBy: userId }),
     ]);
